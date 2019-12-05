@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +12,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/posts/{post}', 'PostController@show');
+Route::get('/posts', 'PostController@index');
+Route::post('/posts', 'PostController@store');
+Route::middleware('auth')->group(function () {
+    Route::post('/posts', 'PostController@store');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
